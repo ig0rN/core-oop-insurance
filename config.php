@@ -5,6 +5,13 @@ function __autoload($c){
 
 Session::init();
 
+function dd($variable) {
+		echo "<pre>";
+    var_dump($variable);
+    echo "</pre>";
+	die();
+}
+
 function redirect($value) {
 	header("Location: {$value}");
 }
@@ -12,8 +19,18 @@ function redirect($value) {
 function showValidationError($validation_messages) {
 	if ($validation_messages != null) {
 		echo "<ul class='alert alert-danger'>";
-		foreach ($validation_messages as $m) {
-			echo "<li>" . $m . "</li>";
+		foreach ($validation_messages as $messages) {
+			echo "<li>" . $messages . "</li>";
+		}
+		echo "</ul>";
+	}
+}
+
+function showValidationGroupError($validation_messages) {
+	if ($validation_messages != null) {
+		echo "<ul class='alert alert-danger'>";
+		foreach ($validation_messages as $messages) {
+			echo "<li>" . $messages . "</li>";
 		}
 		echo "</ul>";
 	}
@@ -22,8 +39,8 @@ function showValidationError($validation_messages) {
 function showValidationSuccess($validation_messages) {
 	if ($validation_messages != null) {
 		echo "<ul class='alert alert-success'>";
-		foreach ($validation_messages as $m) {
-			echo "<li>" . $m . "</li>";
+		foreach ($validation_messages as $messages) {
+			echo "<li>" . $messages . "</li>";
 		}
 		echo "</ul>";
 	}

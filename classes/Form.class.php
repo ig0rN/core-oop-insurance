@@ -2,6 +2,7 @@
 
 class Form {
 
+
     public function __construct(array $data) {
       foreach ($data as $key => $value) {
         if($key == 'email') {
@@ -28,6 +29,10 @@ class Form {
 
             $this->email = $value;
         }
+    }
+
+    public static function sensitizeString ($value) {
+      return strip_tags(trim($value));
     }
 
 

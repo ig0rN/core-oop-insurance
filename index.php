@@ -2,6 +2,7 @@
 require_once "config.php";
 
 $validation_success = Session::get('validation_success') ? Session::get('validation_success') : null;
+$validation_group_errors = !empty(Session::get('validation_group_errors')) ? Session::get('validation_group_errors') : null;
 $validation_errors = Session::get('validation_errors') ? Session::get('validation_errors') : null;
 
 Session::destroy();
@@ -22,15 +23,24 @@ Session::destroy();
 
   </div>
 
-    <div class="container mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+
+          <?php showValidationSuccess($validation_success); ?>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <form method="post" action="forma.php">
 
           <div class="row">
 
               <div class="col-md-6" style="border:1px solid black;">
 
-                  <form method="post" action="forma.php">
-
-                    <?php showValidationSuccess($validation_success); ?>
                     <div class="form-group">
                       <label for="exampleFormControlInput1">Nosilac osiguranja</label>
                       <input name="carrier_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Igor Nikolic">
@@ -73,117 +83,133 @@ Session::destroy();
 
                 <h2>Ljudi koje zelite da osigurate na Vase ime:</h2>
 
-                <div class="row">
+                <div class="form-wrapper" style="border:1px solid black;">
 
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="exampleFormControlInput6">Ime:</label>
-                        <input name="group[]" type="text" class="form-control" id="exampleFormControlInput6" placeholder="Igor">
-                      </div>
+                    <div class="row">
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="exampleFormControlInput6">Ime:</label>
+                            <input name="group[]" type="text" class="form-control" id="exampleFormControlInput6" placeholder="Igor">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="exampleFormControlInput7">Prezime:</label>
+                            <input name="group[]" type="text" class="form-control" id="exampleFormControlInput7" placeholder="Nikolic">
+                          </div>
+                        </div>
+
                     </div>
 
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="exampleFormControlInput7">Prezime:</label>
-                        <input name="group[]" type="text" class="form-control" id="exampleFormControlInput7" placeholder="Nikolic">
-                      </div>
-                    </div>
+                    <div class="row">
 
-                </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="exampleFormControlInput8">E-mail:</label>
+                            <input name="group[]" type="email" class="form-control" id="exampleFormControlInput8" placeholder="Igor Nikolic">
+                          </div>
+                        </div>
 
-                <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="exampleFormControlInput9">Datum rodjenja:</label>
+                            <input name="group[]" type="date" class="form-control" id="exampleFormControlInput9" value="06/01/1995">
+                          </div>
+                        </div>
 
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="exampleFormControlInput8">E-mail:</label>
-                        <input name="group[]" type="email" class="form-control" id="exampleFormControlInput8" placeholder="Igor Nikolic">
-                      </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="exampleFormControlInput9">Datum rodjenja:</label>
-                        <input name="group[]" type="date" class="form-control" id="exampleFormControlInput9" value="06/01/1995">
-                      </div>
-                    </div>
-
-                </div>
-                <div class="row">
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="exampleFormControlInput6">Ime:</label>
-                        <input name="group[]" type="text" class="form-control" id="exampleFormControlInput6" placeholder="Igor">
-                      </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="exampleFormControlInput7">Prezime:</label>
-                        <input name="group[]" type="text" class="form-control" id="exampleFormControlInput7" placeholder="Nikolic">
-                      </div>
                     </div>
 
                 </div>
 
-                <div class="row">
+                <div class="form-wrapper" style="border:1px solid black;">
 
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="exampleFormControlInput8">E-mail:</label>
-                        <input name="group[]" type="email" class="form-control" id="exampleFormControlInput8" placeholder="Igor Nikolic">
-                      </div>
+                    <div class="row">
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="exampleFormControlInput6">Ime:</label>
+                            <input name="group[]" type="text" class="form-control" id="exampleFormControlInput6" placeholder="Igor">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="exampleFormControlInput7">Prezime:</label>
+                            <input name="group[]" type="text" class="form-control" id="exampleFormControlInput7" placeholder="Nikolic">
+                          </div>
+                        </div>
+
                     </div>
 
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="exampleFormControlInput9">Datum rodjenja:</label>
-                        <input name="group[]" type="date" class="form-control" id="exampleFormControlInput9">
-                      </div>
+                    <div class="row">
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="exampleFormControlInput8">E-mail:</label>
+                            <input name="group[]" type="email" class="form-control" id="exampleFormControlInput8" placeholder="Igor Nikolic">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="exampleFormControlInput9">Datum rodjenja:</label>
+                            <input name="group[]" type="date" class="form-control" id="exampleFormControlInput9">
+                          </div>
+                        </div>
+
                     </div>
-
-                </div>
-                <div class="row">
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="exampleFormControlInput6">Ime:</label>
-                        <input name="group[]" type="text" class="form-control" id="exampleFormControlInput6" placeholder="Igor">
-                      </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="exampleFormControlInput7">Prezime:</label>
-                        <input name="group[]" type="text" class="form-control" id="exampleFormControlInput7" placeholder="Nikolic">
-                      </div>
-                    </div>
-
-                </div>
-
-                <div class="row">
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="exampleFormControlInput8">E-mail:</label>
-                        <input name="group[]" type="email" class="form-control" id="exampleFormControlInput8" placeholder="Igor Nikolic">
-                      </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="exampleFormControlInput9">Datum rodjenja:</label>
-                        <input name="group[]" type="date" class="form-control" id="exampleFormControlInput9">
-                      </div>
-                    </div>
-
-                </div>
 
               </div>
 
+              <!-- <div class="form-wrapper" style="border:1px solid black;">
 
-            </form>
-        </div>
+                    <div class="row">
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="exampleFormControlInput6">Ime:</label>
+                            <input name="group[]" type="text" class="form-control" id="exampleFormControlInput6" placeholder="Igor">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="exampleFormControlInput7">Prezime:</label>
+                            <input name="group[]" type="text" class="form-control" id="exampleFormControlInput7" placeholder="Nikolic">
+                          </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="exampleFormControlInput8">E-mail:</label>
+                            <input name="group[]" type="email" class="form-control" id="exampleFormControlInput8" placeholder="Igor Nikolic">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="exampleFormControlInput9">Datum rodjenja:</label>
+                            <input name="group[]" type="date" class="form-control" id="exampleFormControlInput9">
+                          </div>
+                        </div>
+
+                    </div>
+
+              </div> -->
+
+              <?php showValidationGroupError($validation_group_errors); ?>
+
+            </div>
+
+          </div>
+
+      </form>
 
     </div>
 
